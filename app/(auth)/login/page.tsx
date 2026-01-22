@@ -7,6 +7,7 @@ import { useLogin } from "@/lib/hooks/auth/useLoginQueries";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function LoginPage() {
   const loginMutation = useLogin();
@@ -31,7 +32,6 @@ export default function LoginPage() {
       {/* Overlay Card */}
       <div className="w-full max-w-md bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-lg">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          
           <div className="space-y-2">
             <Label>Email</Label>
             <Input
@@ -39,7 +39,7 @@ export default function LoginPage() {
               placeholder="Enter your Email"
               disabled={isSubmitting}
               {...register("email")}
-               className="h-10 px-4 bg-white border-gray-300 text-gray-900 placeholder:text-[#000000] placeholder:text-sm focus:border-[#6D00FF] focus:ring-[#6D00FF] rounded-lg"
+              className="h-10 px-4 bg-white border-gray-300 text-gray-900 placeholder:text-[#000000] placeholder:text-sm focus:border-[#6D00FF] focus:ring-[#6D00FF] rounded-lg"
             />
             {errors.email && (
               <p className="text-sm text-red-600">{errors.email.message}</p>
@@ -53,7 +53,7 @@ export default function LoginPage() {
               placeholder="Enter your Password"
               disabled={isSubmitting}
               {...register("password")}
-               className="h-10 px-4 bg-white border-gray-300 text-gray-900 placeholder:text-[#000000] placeholder:text-sm focus:border-[#6D00FF] focus:ring-[#6D00FF] rounded-lg"
+              className="h-10 px-4 bg-white border-gray-300 text-gray-900 placeholder:text-[#000000] placeholder:text-sm focus:border-[#6D00FF] focus:ring-[#6D00FF] rounded-lg"
             />
             {errors.password && (
               <p className="text-sm text-red-600">{errors.password.message}</p>
@@ -68,11 +68,16 @@ export default function LoginPage() {
             {isSubmitting ? "Signing in..." : "Sign in"}
           </Button>
 
-          {loginMutation.isError && (
-            <p className="text-sm text-red-600 text-center">
-              {(loginMutation.isError as any)?.response?.data?.message}
-            </p>
-          )}
+          <div className="text-center text-sm mt-2">
+            <span className="text-gray-600">Do not have an account?</span>{" "}
+            <Link
+              href="/register"
+              className="font-medium text-[#4700A7] hover:underline"
+            >
+              Create an account
+            </Link>
+          </div>
+
         </form>
       </div>
     </div>

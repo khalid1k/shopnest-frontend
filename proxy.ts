@@ -18,7 +18,7 @@ export function proxy(request: NextRequest) {
 
   // 4. If token exists and trying to access login/register, redirect to dashboard
   if (token && isPublicRoute) {
-    return NextResponse.redirect(new URL('/chat', request.url));
+    return NextResponse.redirect(new URL('/products', request.url));
   }
 
   return NextResponse.next();

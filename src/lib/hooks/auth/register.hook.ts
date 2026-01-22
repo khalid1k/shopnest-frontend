@@ -3,6 +3,7 @@ import { RegisterFormValues } from '@/lib/validations/auth.schema';
 import { authService } from '@/lib/services/auth.service';
 import { toast } from '@/components/ui/use-toast';
 import { useAuthStore } from '@/lib/stores/auth.store';
+import { redirect } from 'next/navigation';
 
 export function useRegister () {
     const setAuth = useAuthStore((state) => state.setAuth )
@@ -14,11 +15,12 @@ export function useRegister () {
                 description: "User is Registred is successfully!"
             })
             setAuth(data)
+            redirect('/products')
         },
-        onError: (error: any) => {
+        onError: (error) => {
             toast({
                 title: "Error",
-                description: error.response?.data?.message || "Failed to register the user",
+                description: error.message || "Failed to register the user",
                 variant: 'destructive'
             })
         }
